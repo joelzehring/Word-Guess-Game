@@ -1,19 +1,19 @@
 // Wheel of Fortune style guessing game. Guess the letters of the word.
 
-// Set the target word to be guessed.
+// Reset the number of times the user guessed the word
+var wins = 0;
 
+// Set the target word to be guessed.
 var targetWord = "hello";
 
-// Represent the user's progress as an array of booleans, one for each letter in the target word. False for letters that haven't been guessed yet, true for letters that have already been guessed.
-
+// Represent the user's progress as an array of booleans, one for each letter in the target word.
+// False for letters that haven't been guessed yet, true for letters that have already been guessed
 var userProgress = [false,false,false,false,false];
 
 // Initiate an array to store letters the user has guessed.
-
 var userGuessList = [];
 
 // Display the word with un-guessed letters hidden
-
 function displayWord(arr) {
   var result = [];
   for (i of arr) {
@@ -29,7 +29,6 @@ function displayWord(arr) {
 }
 
 // handle user's guesses in alerts
-
 var nextGuess = prompt("Guess a letter: " + displayWord(userProgress));
 
 if (/[A-z]/.test(nextGuess) && userGuessList.indexOf(nextGuess) >= 0) {
@@ -41,7 +40,7 @@ if (/[A-z]/.test(nextGuess) && userGuessList.indexOf(nextGuess) >= 0) {
 }
   
 /*
-
+// handle the user's guesses in html
 document.onkeyup = function(event)
   var userGuess = event.key;
   if (if userGuess == /[A-z]/ && userGuessList.indexOf(userGuess) {
