@@ -15,7 +15,18 @@ var targetWord = "hello";
 
 // Represent the user's progress as an array of booleans, one for each letter in the target word.
 // False for letters that haven't been guessed yet, true for letters that have already been guessed
-var userProgress = [false,false,false,false,false];
+// var userProgress = [false,false,false,false,false];
+
+var userProgress = (str) => {
+  var arr = [];
+  for (i of str) {
+    arr.push(false);
+  }
+  document.getElementById("user-progress").innerHTML = arr;
+  return arr;
+}
+
+userProgress(targetWord);
 
 // Initiate an array to store letters the user has guessed.
 var userGuessList = [];
