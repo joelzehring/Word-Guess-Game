@@ -1,4 +1,11 @@
 // Wheel of Fortune style guessing game. Guess the letters of the word.
+ /*
+var feedbackText = document.getElementById("feedback").innerHTML;
+var winText = document.getElementById("win-count").innerHTML;
+var targetText = document.getElementById("target-word").innerHTML;
+var guessRemainText = document.getElementById("guesses-remaining").innerHTML;
+var lettersText = document.getElementById("letters-guessed").innerHTML;
+*/
 
 // Reset the number of times the user guessed the word
 var wins = 0;
@@ -13,43 +20,50 @@ var userProgress = [false,false,false,false,false];
 // Initiate an array to store letters the user has guessed.
 var userGuessList = [];
 
+// Initiate the number of guesses remanining.
+var guessCountDown = 10;
+
 // Display the word with un-guessed letters hidden
-function displayWord(arr) {
-  var result = [];
-  for (i of arr) {
-    if (i === false) {
-      result.push("_");
+function displayWord() {
+  var display = [];
+  for (var i = 0; i < userProgress.length; i++) {
+    if (userProgress[i] === false) {
+      display.push("_");
     }
     else {
-      result.push(targetWord[i]);
+      display.push(targetWord[i]);
     }
   }
-  
-  return result.join(" ");
+	document.getElementById("target-word").innerHTML = display.join(" ");
 }
 
-// handle user's guesses in alerts
-var nextGuess = prompt("Guess a letter: " + displayWord(userProgress));
+displayWord();
 
-if (/[A-z]/.test(nextGuess) && userGuessList.indexOf(nextGuess) >= 0) {
-    alert("That letter has already been suggested. Please try again.");
-} else if (/[A-z]/.test(nextGuess) && targetWord.indexOf(nextGuess) >= 0) {
-    alert("You're right!");
-} else if (/[A-z]/.test(nextGuess) && targetWord.indexOf(nextGuess) < 0) {
-  alert("That letter doesn't appear in the word.");
+// handle user's guesses
+
+var feedbackDiv = document.getElementById("feedback");
+
+document.onkeypress = function(event) {
+	var userGuess = event.key;
+	var range = /[A-Za-z]/;
+	if (range.test(userGuess) && userGuessList.indexOf(userGuess) >= 0) {
+	  feedbackDiv.innerHTML = "That letter has already been suggested. Please try again.";
+		userGuessList.push(userGuess);
+	} else if (range.test(userGuess) && targetWord.indexOf(userGuess) >= 0) {
+	  	feedbackDiv.innerHTML = "You're right!";
+			userGuessList.push(userGuess);
+			for (var i = 0; i < targetWord.length; i++) {
+				if (targetWord[i] === userGuess) {
+					userProgress[i] = true;
+				}
+			}
+	} else if (range.test(userGuess) && targetWord.indexOf(userGuess) < 0) {
+	  	feedbackDiv.innerHTML = "That letter doesn't appear in the word.";
+			userGuessList.push(userGuess);
+	}
+
+	var targetHTML = document.getElementById("target-word").innerHTML;
+	targetHTML = displayWord();
+
+	console.log(userGuessList)
 }
-  
-/*
-// handle the user's guesses in html
-document.onkeyup = function(event)
-  var userGuess = event.key;
-  if (if userGuess == /[A-z]/ && userGuessList.indexOf(userGuess) {
-    console.log("That letter has already been suggested. Please try again.")
-  } else if (userGuess == /[A-z]/ && targetWord.indexOf(userGuess)) {
-    console.log("You're right!");
-  }
-}
-
-*/
-
-console.log(displayWord(userProgress));
