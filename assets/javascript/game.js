@@ -48,7 +48,6 @@ document.onkeypress = function(event) {
 	var range = /[A-Za-z]/;
 	if (range.test(userGuess) && userGuessList.indexOf(userGuess) >= 0) {
 	  feedbackDiv.innerHTML = "That letter has already been suggested. Please try again.";
-		userGuessList.push(userGuess);
 	} else if (range.test(userGuess) && targetWord.indexOf(userGuess) >= 0) {
 	  	feedbackDiv.innerHTML = "You're right!";
 			userGuessList.push(userGuess);
