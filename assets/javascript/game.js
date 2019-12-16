@@ -10,6 +10,8 @@ var lettersText = document.getElementById("letters-guessed").innerHTML;
 // Reset the number of times the user guessed the word
 var wins = 0;
 
+document.getElementById("win-count").innerHTML = "Score: " + wins;
+
 // Set the target word to be guessed.
 var targetWord = "hello";
 
@@ -22,17 +24,19 @@ var userProgress = (str) => {
   for (i of str) {
     arr.push(false);
   }
-  document.getElementById("user-progress").innerHTML = arr;
+  document.getElementById("console").innerHTML = arr;
   return arr;
 }
 
 userProgress(targetWord);
 
-// Initiate an array to store letters the user has guessed.
+// Initialize an array to store letters the user has guessed.
 var userGuessList = [];
+document.getElementById("letters-guessed").innerHTML = "Letters guessed: " + userGuessList.join(", ");
 
 // Initiate the number of guesses remanining.
-var guessCountDown = 10;
+var guessCountDown = 10 - userGuessList;
+document.getElementById("guesses-remaining").innerHTML = "Guesses remaining: " + guessCountDown;
 
 // Display the word with un-guessed letters hidden
 function displayWord() {
