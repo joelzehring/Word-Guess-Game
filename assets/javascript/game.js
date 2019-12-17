@@ -9,13 +9,13 @@ var targetWord = "";
 // Initialize an array to store letters the user has guessed.
 var userGuessList = [];
 // Initiate the number of guesses remanining.
-var guessCountDown = 10;
+var guessCountDown = 12;
 // Represent the user's progress as an array of booleans, one for each letter in the target word.
 // False for letters that haven't been guessed yet, true for letters that have already been guessed
 var userProgress = [];
 
 function setTargetWord() {
-	targetWord = wordList[Math.floor(Math.random() * wordList.length)];
+	targetWord = wordList[Math.floor(Math.random() * wordList.length) - 1];
 }
 
 function setUserGuessList() {
@@ -29,12 +29,26 @@ function setUserProgress(str) {
   return userProgress;
 }
 
+function newGame() {
+  newRound();
+  wins = 0;
+}
+
 function newRound() {
-	userProgress = [];
-	setTargetWord();
-	userGuessList = [];
-	guessCountDown = 10;
-	setUserProgress(targetWord);
+  userProgress = [];
+  setTargetWord();
+  userGuessList = [];
+  guessCountDown = 12;
+  setUserProgress(targetWord);
+}
+
+function gameOver() {
+  document.getElementById("target-word").innerHTML = " ";
+  document.getElementById("letters-guessed").innerHTML = " ";
+  document.getElementById("guesses-remaining").innerHTML = " ";
+  document.getElementById("target-word").innerHTML = " ";
+  feedbackDiv.innerHTML = "Press any key to play again!";
+  document.onkeypress = newGame();
 }
 
 newRound();
@@ -79,6 +93,9 @@ document.onkeypress = function(event) {
 	  	feedbackDiv.innerHTML = "That letter doesn't appear in the word.";
 			userGuessList.push(userGuess);
 			guessCountDown--;
+      if (wins === 0) {
+        gameOver();
+      }
 	}
 
 document.getElementById("target-word").innerHTML = displayWord();
